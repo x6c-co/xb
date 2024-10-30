@@ -9,10 +9,10 @@ A simple BIRD CLI tool to show BGP peers in a pretty table.
 Download one of the binaries from the releases page.
 
 ```bash
-wget https://github.com/x6c-co/xb/releases/download/v0.1.0-alpha/xb_Linux_x86_64.tar.gz
+wget https://github.com/x6c-co/xb/releases/latest/download/xb_Linux_x86_64.tar.gz
 tar -xf xb_Linux_x86_64.tar.gz
 sudo install ./xb /usr/local/bin
-xb
+sudo xb
 ```
 
 By default, `xb`, looks for the `bird.ctl` file at `/var/run/bird/bird.ctl`. You
