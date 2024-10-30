@@ -11,10 +11,14 @@ import (
 )
 
 var (
-	socketPath = "/var/run/bird/bird.ctl"
-	debug      = false
-	header     = []string{"Session", "State", "Neighbor", "AS", "Import", "Export"}
-	borders    = tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false}
+	socketPath  = "/var/run/bird/bird.ctl"
+	debug       = false
+	header      = []string{"Session", "State", "Neighbor", "AS", "Import", "Export"}
+	borders     = tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false}
+	version     = "alpha"
+	commit      = ""
+	date        = ""
+	showVersion = false
 )
 
 const (
@@ -38,7 +42,12 @@ func main() {
 
 	flag.StringVar(&socketPath, "socket", socketPath, "path to socket")
 	flag.BoolVar(&debug, "debug", debug, "output more data")
+	flag.BoolVar(&showVersion, "version", showVersion, "shows the version")
 	flag.Parse()
+
+	if showVersion {
+		fmt.Printf("%s (%s) [%s]\n", version, commit, date)
+	}
 
 	socket := birdsocket.NewSocket(socketPath, birdsocket.WithBufferSize(bufferSize))
 
