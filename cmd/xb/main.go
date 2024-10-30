@@ -36,7 +36,7 @@ const (
 )
 
 func main() {
-	if os.Getenv(birdSocketKey) == emptyString {
+	if os.Getenv(birdSocketKey) != emptyString {
 		socketPath = os.Getenv(birdSocketKey)
 	}
 
