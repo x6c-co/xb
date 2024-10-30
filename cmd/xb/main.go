@@ -53,12 +53,14 @@ func main() {
 
 	_, err := socket.Connect()
 	if err != nil {
-		panic(err)
+		fmt.Printf("failed to connect to socket '%s'\n", socketPath)
+		return
 	}
 
 	reply, err := socket.Query(showProtocolsAllCMD)
 	if err != nil {
-		panic(err)
+		fmt.Printf("failed to query BIRD on socket '%s'\n", socketPath)
+		return
 	}
 
 	protocols := string(reply)
