@@ -28,9 +28,14 @@ const (
 	newline             = "\n"
 	emptyString         = ""
 	bgp                 = "BGP"
+	birdSocketKey       = "BIRD_SOCKET"
 )
 
 func main() {
+	if os.Getenv(birdSocketKey) == emptyString {
+		socketPath = os.Getenv(birdSocketKey)
+	}
+
 	flag.StringVar(&socketPath, "socket", socketPath, "path to socket")
 	flag.BoolVar(&debug, "debug", debug, "output more data")
 	flag.Parse()
