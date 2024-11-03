@@ -13,7 +13,7 @@ import (
 var (
 	socketPath  = "/var/run/bird/bird.ctl"
 	debug       = false
-	header      = []string{"Session", "State", "Neighbor", "AS", "Import", "Export"}
+	header      = []string{"Session", "State", "Since", "Neighbor", "AS", "Import", "Export"}
 	borders     = tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false}
 	version     = "alpha"
 	commit      = ""
@@ -84,6 +84,7 @@ func main() {
 	as := emptyString
 	im := emptyString
 	ex := emptyString
+	since := emptyString
 
 	for _, line := range lines {
 		if strings.HasPrefix(line, newEntryKey) {
@@ -98,6 +99,7 @@ func main() {
 			session = fields[0]
 
 			state = getElementAtIndex(fields, 3)
+			since = getElementAtIndex(fields, 4) + " " + getElementAtIndex(fields, 5)
 		}
 
 		if strings.Contains(line, neighborASKey) && isBGP && isOpen {
@@ -125,7 +127,7 @@ func main() {
 			isBGP = false
 
 			if session != emptyString {
-				table.Append([]string{session, state, neighbor, as, im, ex})
+				table.Append([]string{session, state, since, neighbor, as, im, ex})
 			}
 
 			session = emptyString
@@ -134,6 +136,7 @@ func main() {
 			as = emptyString
 			im = emptyString
 			ex = emptyString
+			since = emptyString
 		}
 	}
 
